@@ -227,7 +227,7 @@ class SIRModel():
             self.json_data[SLICE_INFECTED_FRACTIONS].append(self.average_array[0])
             self.json_data[SLICE_INFECTED_FRACTIONS_VARIANCE].append(self.variance_array[0])
             self.json_data[SLICE_INFECTED_FRACTIONS_ERROR].append(self.BootStrap(self.total_infected))
-            print(p_1)
+            #print(p_1)
         self.SaveData("sliced_data.jsonc")
         self.PlotSlicedData("sliced_data.jsonc")
 
@@ -239,7 +239,7 @@ class SIRModel():
                 self.DataSlice(SAMPLES, p_1, 0.5, p_3)
             self.json_data[INFECTED_FRACTIONS].append(self.average_array)
             self.json_data[INFECTED_FRACTIONS_VARIANCE].append(self.variance_array)
-            print(p_1)
+            #print(p_1)
         self.SaveData("phase_data.jsonc")
         self.PlotData("phase_data.jsonc")
 
@@ -345,7 +345,7 @@ class SIRModel():
             sliced_variance = j.get(SLICE_INFECTED_FRACTIONS_VARIANCE)
 
             #plt.scatter(np.linspace(0.2, 0.5, RESOLUTION), sliced_variance)
-            plt.errorbar(np.linspace(0.2, 0.5, RESOLUTION), sliced_variance, yerr=j.get(SLICE_INFECTED_FRACTIONS_ERROR), fmt='none')
+            plt.errorbar(np.linspace(0.2, 0.5, RESOLUTION), sliced_variance, yerr=j.get(SLICE_INFECTED_FRACTIONS_ERROR), capsize = 5, fmt='none')
             plt.title("Variance of Infected Sites")
             plt.xlabel("Probability of Infection (p_1)")
             plt.ylabel("Variance")
@@ -388,6 +388,7 @@ class SIRModel():
             plt.title("Variance Contour")
             plt.xlabel("Probability of Infection (p_1)")
             plt.ylabel("Probability of Losing Immunity (p_3)")
+            plt.show()
             # TODO:
             # Extract data
             # Call plot function(s)
@@ -400,6 +401,6 @@ class SIRModel():
 sim = SIRModel()
 sim.json_path = "data.jsonc"
 
-sim.Start()
+#sim.Start()
 
-#sim.PlotVaccinatedData("vaccinated_data.jsonc")
+sim.PlotSlicedData("sliced_data.jsonc")
