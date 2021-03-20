@@ -293,11 +293,20 @@ class SIRModel():
                     self.recovered += 1
 
     def HasInfectedNear(self, x, y):
-        for i in range(x - 1, x + 1):
-            for j in range(y - 1, y + 1):
-                if self.grid[j % self.size][i % self.size] == State.I:
-                    return True
-        return False
+        if self.grid[(x-1) % self.size][y % self.size] == State.I:
+            return True
+        if self.grid[(x+1) % self.size][y % self.size] == State.I:
+            return True
+        if self.grid[x % self.size][(y+1) % self.size] == State.I:
+            return True
+        if self.grid[x % self.size][(y-1) % self.size] == State.I:
+            return True
+        # for i in range(x - 1, x + 2):
+        #     for j in range(y - 1, y + 2):
+        #         if self.grid[j % self.size][i % self.size] == State.I:
+        #             return True
+        else:
+            return False
 
     def DataSlice(self, sweeps, p_1, p_2, p_3, vaccinated_fraction = 0):
         sum = 0
@@ -401,6 +410,6 @@ class SIRModel():
 sim = SIRModel()
 sim.json_path = "data.jsonc"
 
-#sim.Start()
+sim.Start()
 
-sim.PlotSlicedData("sliced_data.jsonc")
+#sim.PlotSlicedData("sliced_data.jsonc")
